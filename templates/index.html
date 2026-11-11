@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL SELECTION</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+
+        a, a:visited {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        a:hover, a:focus, a:active {
+            color: gray;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>SQL WEB VIEWER</h1>
+
+    <h2>SQL STATEMENT</2>
+    
+    <form>
+        <textarea rows="10" cols="120" type="text" name="sql" placeholder="SELECT * FROM users">{% if promt %}{{ promt }}{% endif %}</textarea><br>
+        <button type="submit">SUBMIT</button>
+    </form>
+
+    <br>
+    <br>
+
+    {% if tables %}
+        <h2>
+            Tables
+        </h2>
+        | {% for i in tables%}
+            {% for j in i %}
+                <em><a href="?sql=SELECT+*+FROM+{{ i[j] }}">{{ i[j] }}</a></em> | 
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+
+    <br>
+    <br>
+
+    <h2>Database File</h2>
+    <form>
+        <input type="file" placeholder="Drag and Drop you file here">
+        <br>
+        <button type="submit">SUBMIT</button>
+    </form>
+
+    <br>
+    <br>
+
+    {% if response or error %}
+        <h2>
+            SQL RESULTS
+        </h2>
+    {% endif %}
+
+
+    <div>
+        {% if response %}
+            <table>
+                <tr>
+                    {% for j in response[1] %}
+                        <th>
+                            {{j}} ↗
+                        </th>
+                    {% endfor %}
+                </tr>
+                {% for i in response%}
+                    <tr>
+                        {% for j in i%}
+                            <th>
+                                {{i[j]}}
+                            </th>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+        {% if error %}
+            <h3>
+                {{ error }}
+            </h3>
+        {% endif %}
+    </div>
+</body>
+</html>
