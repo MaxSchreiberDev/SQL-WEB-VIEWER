@@ -51,8 +51,8 @@
     <br>
 
     <h2>Database File</h2>
-    <form>
-        <input type="file" placeholder="Drag and Drop you file here">
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <input required name="file" type="file" placeholder="Drag and Drop you file here">
         <br>
         <button type="submit">SUBMIT</button>
     </form>
